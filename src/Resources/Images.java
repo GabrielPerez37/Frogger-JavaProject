@@ -42,6 +42,7 @@ public class Images {
     public static BufferedImage waterArea;
     public static BufferedImage emptyArea;
     public static BufferedImage lilly;
+    public static BufferedImage tree;
     public static BufferedImage log;
     public static BufferedImage grass;
 
@@ -64,6 +65,7 @@ public class Images {
             WaterSheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/water.png")));
 
             title = ImageIO.read(getClass().getResourceAsStream("/Sheets/Frogger2.png"));
+            tree = ImageIO.read(getClass().getResourceAsStream("/Sheets/tree.png"));
             Pause = ImageIO.read(getClass().getResourceAsStream("/Buttons/Pause.png"));
             Resume[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/ResumeButton.png"));
             Resume[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/ResumeButton2.png"));
@@ -121,6 +123,7 @@ public class Images {
 
             lilly = playerSheet.crop(6,170,61,55);
             log = playerSheet.crop(387,259,184,57);
+          
             
             object[0] = ImageIO.read(getClass().getResourceAsStream("/Sheets/Objects/object1.png"));
             object[1] = ImageIO.read(getClass().getResourceAsStream("/Sheets/Objects/object2.png"));
