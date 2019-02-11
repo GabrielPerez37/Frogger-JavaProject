@@ -11,9 +11,11 @@ import Main.Handler;
 public class StaticBase extends EntityBase {
 
     private BaseArea SpawnableArea;
+   
 
     StaticBase(Handler handler) {
         super(handler);
+        
     }
 
     /*
@@ -39,6 +41,7 @@ public class StaticBase extends EntityBase {
      * Obtains the Rectangle of this Area.
      */
 	public Rectangle GetCollision() {
+		
 		return new Rectangle();
 	}
 }

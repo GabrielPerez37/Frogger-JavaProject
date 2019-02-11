@@ -16,7 +16,7 @@ public class Player extends EntityBase {
 
 
     private Rectangle player;
-    private String facing = "UP";
+    public String facing = "UP";
     private Boolean moving = false;
     private int moveCoolDown=0;
 
@@ -26,7 +26,7 @@ public class Player extends EntityBase {
         super(handler);
         this.handler = handler;
         this.handler.getEntityManager().getEntityList().add(this);
-
+        
         player = new Rectangle(); 	// see UpdatePlayerRectangle(Graphics g) for its usage.
     }
 
@@ -226,7 +226,8 @@ public class Player extends EntityBase {
     }
 
     public Rectangle getPlayerCollision() {
-        return player;
+    	
+    	return player;
     }
 
 }
