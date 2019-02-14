@@ -61,7 +61,7 @@ public class Player extends EntityBase {
         index=0;
 
         /////////////////MOVE UP///////////////
-        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_W) && !moving && facing.equals("UP")){
+        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_W) && !moving && facing.equals("UP") && this.getY()>64*1.5){
             moving=true;
         }else if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_W) && !moving && !facing.equals("UP")){
             if(facing.equals("DOWN")) {
@@ -85,9 +85,12 @@ public class Player extends EntityBase {
         }
 
         /////////////////MOVE LEFT///////////////
-        else if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_A) && !moving && facing.equals("LEFT")){
+        else if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_A) && !moving && facing.equals("LEFT") && this.getX()>64/1.5 ){
             moving=true;
-        }else if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_A) && !moving&& !facing.equals("LEFT")){
+        }
+       
+        
+        else if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_A) && !moving&& !facing.equals("LEFT") ){
             if(facing.equals("RIGHT")) {
                 setX(getX()-64);
             }
@@ -96,7 +99,7 @@ public class Player extends EntityBase {
         }
 
         /////////////////MOVE DOWN///////////////
-        else if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_S) && !moving && facing.equals("DOWN")){
+        else if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_S) && !moving && facing.equals("DOWN")&& !((this.getY())> this.getHeight())){
             moving=true;
         }else if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_S) && !moving && !facing.equals("DOWN")){
             reGrid();
@@ -107,7 +110,7 @@ public class Player extends EntityBase {
         }
 
         /////////////////MOVE RIGHT///////////////
-        else if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_D) && !moving && facing.equals("RIGHT")){
+        else if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_D) && !moving && facing.equals("RIGHT") && handler.getWidth()>this.getX()){
             moving=true;
         }else if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_D) && !moving&& !facing.equals("RIGHT")){
             if(facing.equals("LEFT")) {
