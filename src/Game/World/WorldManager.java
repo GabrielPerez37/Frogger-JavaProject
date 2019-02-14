@@ -75,8 +75,15 @@ public class WorldManager {
          * 	Spawn Areas in Map (2 extra areas spawned off screen)
          *  To understand this, go down to randomArea(int yPosition) 
          */
+        int spawn = 0;
         for(int i=0; i<gridHeight+2; i++) {
-        	SpawnedAreas.add(randomArea((-2+i)*64));
+        	if(spawn<8) {
+        		SpawnedAreas.add(randomArea((-2+i)*64));
+        		spawn++;
+        		}
+        	else{
+        		SpawnedAreas.add(new EmptyArea(handler, (-2+i)*64));
+        	}
         }
         	
         player.setX((gridWidth/2)*64);
