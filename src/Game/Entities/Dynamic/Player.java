@@ -99,7 +99,7 @@ public class Player extends EntityBase {
         }
 
         /////////////////MOVE DOWN///////////////
-        else if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_S) && !moving && facing.equals("DOWN")&& !((this.getY())> this.getHeight())){
+        else if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_S) && !moving && facing.equals("DOWN")&& handler.getWidth()>this.getY()){
             moving=true;
         }else if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_S) && !moving && !facing.equals("DOWN")){
             reGrid();
