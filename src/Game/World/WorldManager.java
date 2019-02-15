@@ -31,9 +31,8 @@ public class WorldManager {
     
     Long time;
     Boolean reset = true;
-    
-    Handler handler;
-
+    Boolean yLevel = true;
+    Handler handler;		
 
 	private Player player;									// How do we find the frog coordinates? How do we find the Collisions? This bad boy.
     
@@ -239,20 +238,42 @@ public class WorldManager {
 		Random rand = new Random();
 		int randInt;
 		int choice = rand.nextInt(7);
+		int lillySpawn = rand.nextInt(5) + 1;
+		int election = rand.nextInt(1);
+		int i;
 		// Chooses between Log or Lillypad
 		if (choice <=2) {
 			randInt = 64 * rand.nextInt(4);
 			SpawnedHazards.add(new Log(handler, randInt, yPosition));
+			yLevel = false;
 		}
 		else if (choice >=5){
 			randInt = 64 * rand.nextInt(9);
 			SpawnedHazards.add(new LillyPad(handler, randInt, yPosition));
+			yLevel = false;
 		}
 		else {
-			randInt = 64 * rand.nextInt(3);
-			SpawnedHazards.add(new Turtle(handler, randInt, yPosition));
-		}
+			if(yLevel) {
+				if(election == 1) {
+					randInt = 64 * rand.nextInt(4);
+					SpawnedHazards.add(new Log(handler, randInt, yPosition));
+					yLevel = false;
+				}
+				else {
+					randInt = 64 * rand.nextInt(3);
+					SpawnedHazards.add(new Turtle(handler, randInt, yPosition));
+					yLevel = false;
+				}	
+			}
+			else {
+				for(i = 0; i < lillySpawn; i++) {
+					randInt = 64 * rand.nextInt(3);
+					SpawnedHazards.add(new LillyPad(handler, randInt, yPosition));
+					}
+				yLevel = true;
+				}
+			}
 			
-	}
+		}
     
 }
