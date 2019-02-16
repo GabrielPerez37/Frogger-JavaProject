@@ -57,7 +57,7 @@ public class WorldManager {
 
         StaticEntitiesAvailables.add(new LillyPad(handler, 0, 0));
         StaticEntitiesAvailables.add(new Log(handler, 0, 0));
-        StaticEntitiesAvailables.add(new Tree(handler));
+        StaticEntitiesAvailables.add(new Tree(handler,0,0));
         StaticEntitiesAvailables.add(new Turtle(handler, 0, 0));
 
         SpawnedAreas = new ArrayList<>();
