@@ -19,7 +19,7 @@ public class Player extends EntityBase {
     public String facing = "UP";
     private Boolean moving = false;
     private int moveCoolDown=0;
-
+    private int score=0;
     private int index =0;
 
     public Player(Handler handler) {
@@ -63,6 +63,7 @@ public class Player extends EntityBase {
         /////////////////MOVE UP///////////////
         if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_W) && !moving && facing.equals("UP") && this.getY()>64*1.5){
             moving=true;
+            score++;
         }else if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_W) && !moving && !facing.equals("UP")){
             if(facing.equals("DOWN")) {
                 if(this.getX() % 64 >= 64 / 2 ) {
@@ -171,11 +172,15 @@ public class Player extends EntityBase {
     }
 
     public void render(Graphics g){
-
+    	
         if(index>=8){
             index=0;
             moving = false;
         }
+        String score1= Integer.toString(score);
+        g.drawString("Score: "+score1, 30, 30);
+        g.drawRect(30, 8, 100, 35);
+        
 
         switch (facing) {
             case "UP":
