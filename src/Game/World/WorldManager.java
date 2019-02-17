@@ -169,6 +169,25 @@ public class WorldManager {
 
 			// Moves hazard down
 			SpawnedHazards.get(i).setY(SpawnedHazards.get(i).getY() + movementSpeed);
+			
+			if(SpawnedHazards.get(i) instanceof Tree && SpawnedHazards.get(i).GetCollision() != null
+						&& player.getPlayerCollision().intersects(SpawnedHazards.get(i).GetCollision())) {
+				
+				if(player.facing=="UP") {
+					player.setY(player.getY()+64);
+				}
+				if(player.facing=="DOWN") {
+					player.setY(player.getY()-64);
+				}
+				if(player.facing=="LEFT") {
+					player.setX(player.getX()+64);
+				}
+				if(player.facing=="RIGHT") {
+					player.setX(player.getX()-64);
+				}
+				
+				
+			}
 
 			// Moves Log or Turtle to the right
 			if (SpawnedHazards.get(i) instanceof Log || SpawnedHazards.get(i) instanceof Turtle) {
@@ -220,6 +239,7 @@ public class WorldManager {
     	
     	if(randomArea instanceof GrassArea) {
     		randomArea = new GrassArea(handler, yPosition);
+    		SpawnTree(yPosition);
     	}
     	else if(randomArea instanceof WaterArea) {
     		randomArea = new WaterArea(handler, yPosition);
@@ -230,6 +250,15 @@ public class WorldManager {
     	}
     	return randomArea;
     }
+	private void SpawnTree(int yPosition) {
+		Random rand = new Random();
+		int randInt;
+		int choice = rand.nextInt(4);
+		if (choice <=2) {
+			randInt = 64 * rand.nextInt(4);
+			SpawnedHazards.add(new Tree(handler, randInt, yPosition));
+		}
+	}
 
 	/*
 	 * Given a yPositionm this method will add a new hazard to the SpawnedHazards ArrayList
