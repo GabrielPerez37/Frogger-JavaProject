@@ -136,8 +136,6 @@ public class WorldManager {
 			hazard.tick();
 		}
 		
-		
-		
 		for (int i = 0; i < SpawnedAreas.size(); i++) {
 			SpawnedAreas.get(i).setYPosition(SpawnedAreas.get(i).getYPosition() + movementSpeed);
 
@@ -145,6 +143,7 @@ public class WorldManager {
 			if (SpawnedAreas.get(i).getYPosition() > handler.getHeight()) {
 				// Replace with a new random area and position it on top
 				SpawnedAreas.set(i, randomArea(-2 * 64));
+				
 			}
 			//Make sure players position is synchronized with area's movement
 			if (SpawnedAreas.get(i).getYPosition() < player.getY()
@@ -169,7 +168,7 @@ public class WorldManager {
 
 			// Moves hazard down
 			SpawnedHazards.get(i).setY(SpawnedHazards.get(i).getY() + movementSpeed);
-			
+			//Boundaries for Tree
 			if(SpawnedHazards.get(i) instanceof Tree && SpawnedHazards.get(i).GetCollision() != null
 						&& player.getPlayerCollision().intersects(SpawnedHazards.get(i).GetCollision())) {
 				
@@ -185,14 +184,25 @@ public class WorldManager {
 				if(player.facing=="RIGHT") {
 					player.setX(player.getX()-64);
 				}
-				
-				
 			}
-
-			// Moves Log or Turtle to the right
-			if (SpawnedHazards.get(i) instanceof Log || SpawnedHazards.get(i) instanceof Turtle) {
+			//Moves Log to the right and re-appear on the left
+			if (SpawnedHazards.get(i) instanceof Log) {
 				SpawnedHazards.get(i).setX(SpawnedHazards.get(i).getX() + 1);
-
+				if(SpawnedHazards.get(i).getX()>576) {
+					SpawnedHazards.get(i).setX(-128);
+				}
+				if (SpawnedHazards.get(i).GetCollision() != null 
+						&& player.getPlayerCollision().intersects(SpawnedHazards.get(i).GetCollision())) {
+					player.setX(player.getX() + 1);
+					
+				}
+			}
+			
+			// Moves Turtle to the right
+			if (SpawnedHazards.get(i) instanceof Turtle) {
+				SpawnedHazards.get(i).setX(SpawnedHazards.get(i).getX() + 1);
+				
+			
 				// Verifies the hazards Rectangles aren't null and
 				// If the player Rectangle intersects with the Log or Turtle Rectangle, then
 				// move player to the right.
@@ -200,15 +210,17 @@ public class WorldManager {
 						&& player.getPlayerCollision().intersects(SpawnedHazards.get(i).GetCollision())) {
 					player.setX(player.getX() + 1);
 				}
-
 			}
+			
+			
 
 			// if hazard has passed the screen height, then remove this hazard.
 			if (SpawnedHazards.get(i).getY() > handler.getHeight()) {
 				SpawnedHazards.remove(i);
 			}
 		}
-	}
+		}
+	
 	
 	
     public void render(Graphics g){
@@ -250,6 +262,7 @@ public class WorldManager {
     	}
     	return randomArea;
     }
+	
 	private void SpawnTree(int yPosition) {
 		Random rand = new Random();
 		int randInt;
@@ -270,11 +283,11 @@ public class WorldManager {
 		int lillySpawn = rand.nextInt(5) + 1;
 		int election = rand.nextInt(1);
 		int i;
-		// Chooses between Log or Lillypad
+		// Chooses between Log or LillyPad
 		if (choice <=2) {
 			randInt = 64 * rand.nextInt(4);
 			SpawnedHazards.add(new Log(handler, randInt, yPosition));
-			yLevel = false;
+			yLevel = true;
 		}
 		else if (choice >=5){
 			randInt = 64 * rand.nextInt(9);
