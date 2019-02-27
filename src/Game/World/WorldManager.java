@@ -44,8 +44,9 @@ public class WorldManager {
 	private int gridWidth,gridHeight;						// Size of the grid. 
 	private int movementSpeed;								// Movement of the tiles going downwards.
 	private int score;
+	private int dummyScore;
 	private int height;
-	private int playerheight;
+	
 
 
 
@@ -132,9 +133,22 @@ public class WorldManager {
 			}
 
 		}
+		//Score verifier.
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_W)) {
-			score++;
+			if(dummyScore < score) {
+				dummyScore++;
+			}else if(dummyScore== score) {
+				dummyScore++;
+				score++;
+			}else {
+				dummyScore = score;
+			
+			}
 		}
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_S)) {
+			dummyScore--;
+		}
+		
 
 		for (BaseArea area : SpawnedAreas) {
 			area.tick();
@@ -181,6 +195,7 @@ public class WorldManager {
 
 				if(player.facing=="UP") {
 					player.setY(player.getY()+64);
+					
 				}
 				if(player.facing=="DOWN") {
 					player.setY(player.getY()-64);
@@ -292,15 +307,10 @@ public class WorldManager {
 		int randInt;
 		int choice = rand.nextInt(7);
 		int lillySpawn = rand.nextInt(5) + 1;
-		int logspawn = rand.nextInt(3);
+		int logspawn = rand.nextInt(12);
 		int election = rand.nextInt(1);
 
 		// Chooses between Log or LillyPad
-		//		if (choice <=4) {
-		//			randInt = 64 * rand.nextInt(9);
-		//			SpawnedHazards.add(new Log(handler, randInt, yPosition));
-		//			yLevel = true;
-		//		}
 		if (choice >=5){
 			randInt = 64 * rand.nextInt(9);
 			SpawnedHazards.add(new LillyPad(handler, randInt, yPosition));
@@ -329,11 +339,11 @@ public class WorldManager {
 			}
 			else {
 				for(int j=1; j< logspawn; j++) {
-					randInt = 64 * rand.nextInt(8);
+					randInt = 64 * rand.nextInt(5);
 					SpawnedHazards.add(new Log(handler, randInt, yPosition));
-					yLevel= false;
+					yLevel= true;
 				}
-				yLevel = true;
+				
 			}
 		}
 
