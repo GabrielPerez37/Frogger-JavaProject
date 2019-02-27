@@ -19,8 +19,6 @@ public class Player extends EntityBase {
     public String facing = "UP";
     private Boolean moving = false;
     private int moveCoolDown=0;
-    private int scoreu=0;
-    private int scored=0;
     private int index =0;
 
     public Player(Handler handler) {
@@ -64,7 +62,7 @@ public class Player extends EntityBase {
         /////////////////MOVE UP///////////////
         if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_W) && !moving && facing.equals("UP") && this.getY()>64*1.5){
             moving=true;
-            scoreu++;
+            
         }else if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_W) && !moving && !facing.equals("UP")){
             if(facing.equals("DOWN")) {
                 if(this.getX() % 64 >= 64 / 2 ) {
@@ -103,7 +101,6 @@ public class Player extends EntityBase {
         /////////////////MOVE DOWN///////////////
         else if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_S) && !moving && facing.equals("DOWN")&& handler.getWidth()>this.getY()){
             moving=true;
-            scored--;
         }else if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_S) && !moving && !facing.equals("DOWN")){
             reGrid();
             if(facing.equals("RIGHT")){
@@ -179,16 +176,6 @@ public class Player extends EntityBase {
             index=0;
             moving = false;
         }
-        String score1= Integer.toString(scoreu);
-        String score2 = Integer.toString(scored);
-        if(scoreu>scored) {
-        	g.drawString("Score: " + score1, 32, 30);
-        }else {
-        	 g.drawString("Score: " + score2, 32, 30);
-        }
-        g.drawRect(30, 8, 100, 35);
-        
-        
 
         switch (facing) {
             case "UP":
