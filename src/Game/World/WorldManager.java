@@ -45,7 +45,7 @@ public class WorldManager {
 	private int movementSpeed;								// Movement of the tiles going downwards.
 	private int score;
 	private int dummyScore;
-	private int height;
+	
 	
 
 
@@ -142,14 +142,12 @@ public class WorldManager {
 				score++;
 			}else {
 				dummyScore = score;
-			
 			}
 		}
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_S)) {
 			dummyScore--;
 		}
 		
-
 		for (BaseArea area : SpawnedAreas) {
 			area.tick();
 		}
@@ -192,10 +190,11 @@ public class WorldManager {
 			//Boundaries for Tree
 			if(SpawnedHazards.get(i) instanceof Tree && SpawnedHazards.get(i).GetCollision() != null
 					&& player.getPlayerCollision().intersects(SpawnedHazards.get(i).GetCollision())) {
-
+				dummyScore--;
+				
+				
 				if(player.facing=="UP") {
 					player.setY(player.getY()+64);
-					
 				}
 				if(player.facing=="DOWN") {
 					player.setY(player.getY()-64);
@@ -253,12 +252,15 @@ public class WorldManager {
 			hazards.render(g);
 
 		}
-
+		//Draws Score
+		
+		g.setColor(Color.black);
+		g.setFont(new Font ("Impact",Font.BOLD,25));
 		String score1= Integer.toString(score);
-
-		g.drawString("Score: " + score1, 32, 30);
-
-		g.drawRect(30, 8, 100, 35);
+		g.drawString("Score: " + score1, 32, 33);
+		g.drawRect(30, 8, 106, 35);
+	
+		
 
 		player.render(g);       
 		this.object2.render(g);      
@@ -307,7 +309,6 @@ public class WorldManager {
 		int randInt;
 		int choice = rand.nextInt(7);
 		int lillySpawn = rand.nextInt(5) + 1;
-		int logspawn = rand.nextInt(12);
 		int election = rand.nextInt(1);
 
 		// Chooses between Log or LillyPad
@@ -338,10 +339,10 @@ public class WorldManager {
 				yLevel = true;
 			}
 			else {
-				for(int j=1; j< logspawn; j++) {
-					randInt = 64 * rand.nextInt(5);
+				for(int j=0; j< rand.nextInt(5); j++) {
+					randInt = 128 * j;
 					SpawnedHazards.add(new Log(handler, randInt, yPosition));
-					yLevel= true;
+					
 				}
 				
 			}
