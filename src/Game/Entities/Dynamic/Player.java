@@ -27,7 +27,7 @@ public class Player extends EntityBase {
         this.handler.getEntityManager().getEntityList().add(this);
         
         player = new Rectangle(); 	// see UpdatePlayerRectangle(Graphics g) for its usage.
-    }
+    } 
 
     public void tick(){
 
@@ -232,5 +232,8 @@ public class Player extends EntityBase {
     	
     	return player;
     }
+
+    
+    
 
 }

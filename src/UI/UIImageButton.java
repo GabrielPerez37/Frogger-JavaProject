@@ -29,7 +29,7 @@ public class UIImageButton extends UIObject{
                 g.drawImage(images[2], (int) x, (int) y, width, heith, null);
             }
         }
-        else if(hovering){
+        else if(hovering){ 
             g.drawImage(images[1],(int)x,(int)y,width,heith,null);
         }else{
             g.drawImage(images[0],(int)x,(int)y,width,heith,null);

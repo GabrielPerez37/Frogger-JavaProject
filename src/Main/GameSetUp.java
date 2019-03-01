@@ -1,6 +1,7 @@
 package Main;
 
 import Display.DisplayScreen;
+import Game.GameStates.GameOverState;
 import Game.GameStates.GameState;
 import Game.GameStates.MenuState;
 import Game.GameStates.PauseState;
@@ -44,6 +45,7 @@ public class GameSetUp implements Runnable {
     public State gameState;
     public State menuState;
     public State pauseState;
+    public State gameOverState;
 
     //Res.music
     public MusicHandler musicHandler;
@@ -78,10 +80,11 @@ public class GameSetUp implements Runnable {
         gameState = new GameState(handler);
         menuState = new MenuState(handler);
         pauseState = new PauseState(handler);
+        gameOverState = new GameOverState(handler);
 
         State.setState(menuState);
 
-        musicHandler.set_changeMusic("res/music/UTheme.mp3");
+        musicHandler.set_changeMusic("res/music/TaToGucci.mp3");
         musicHandler.play();
         musicHandler.setLoop(true);
         musicHandler.setVolume(0.25);
