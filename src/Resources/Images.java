@@ -6,6 +6,7 @@ import javax.swing.*;
 import Main.GameSetUp;
 import UI.UIObject;
 
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -19,7 +20,10 @@ import java.io.IOException;
 public class Images {
 
 
-    public static BufferedImage[] butstart;
+    public static BufferedImage DeathScreen;
+	public static BufferedImage[] DeathRetry;
+    public static BufferedImage[] DeathTitle;
+	public static BufferedImage[] butstart;
     public static BufferedImage title;
     public static BufferedImage Pause;
     public static BufferedImage[] Resume;
@@ -59,6 +63,8 @@ public class Images {
         Turtle = new BufferedImage[20];
         Water = new BufferedImage[3];
         object = new BufferedImage[6];
+        DeathRetry = new BufferedImage[2];
+        DeathTitle = new BufferedImage[2];
 
         try {
             playerSheet = new SpriteSheet(ImageIO.read(getClass().getResourceAsStream("/Sheets/gameSprites.png")));
@@ -67,6 +73,11 @@ public class Images {
             title = ImageIO.read(getClass().getResourceAsStream("/Sheets/Frogger2.png"));
             tree = ImageIO.read(getClass().getResourceAsStream("/Sheets/tree.png"));
             Pause = ImageIO.read(getClass().getResourceAsStream("/Buttons/Pause.png"));
+            DeathTitle[0]=ImageIO.read(getClass().getResourceAsStream("/Sheets/DeathTitle.png"));
+            DeathRetry[0]=ImageIO.read(getClass().getResourceAsStream("/Sheets/DeathRetry.png"));
+            DeathTitle[1]=ImageIO.read(getClass().getResourceAsStream("/Sheets/DeathTitle.png"));
+            DeathRetry[1]=ImageIO.read(getClass().getResourceAsStream("/Sheets/DeathRetry.png"));
+            DeathScreen = ImageIO.read(getClass().getResourceAsStream("/Sheets/DeathScreen.png"));
             Resume[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/ResumeButton.png"));
             Resume[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/ResumeButton2.png"));
             BTitle[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/TitleButton.png"));

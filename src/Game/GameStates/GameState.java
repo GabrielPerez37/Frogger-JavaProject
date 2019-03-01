@@ -30,7 +30,7 @@ public class GameState extends State {
     public void tick() {
         handler.getWorld().tick();
         if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
-        	State.setState(handler.getGame().pauseState);
+        	State.setState(handler.getGame().pauseState); 
         }
 
     }

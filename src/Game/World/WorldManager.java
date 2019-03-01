@@ -6,6 +6,7 @@ import Game.Entities.Static.Log;
 import Game.Entities.Static.StaticBase;
 import Game.Entities.Static.Tree;
 import Game.Entities.Static.Turtle;
+import Game.GameStates.State;
 import Main.Handler;
 import UI.UIManager;
 
@@ -31,7 +32,7 @@ public class WorldManager {
 
 	Long time;
 	Boolean reset = true;
-	Boolean yLevel = true;
+	Boolean yLevel = true; 
 	Handler handler;		
 
 	private Player player;									// How do we find the frog coordinates? How do we find the Collisions? This bad boy.
@@ -43,7 +44,7 @@ public class WorldManager {
 	private ID[][] grid;									
 	private int gridWidth,gridHeight;						// Size of the grid. 
 	private int movementSpeed;								// Movement of the tiles going downwards.
-	private int score;
+	public static int score;
 	private int dummyScore;
 	private int height;
 	
@@ -104,6 +105,10 @@ public class WorldManager {
 
 	public void tick() {
 
+		if(player.getY()-1 >= 768) {
+			State.setState(handler.getGame().gameOverState);
+		}
+		
 		if(this.handler.getKeyManager().keyJustPressed(this.handler.getKeyManager().num[2])) {
 			this.object2.word = this.object2.word + this.handler.getKeyManager().str[1];
 		}
@@ -182,7 +187,11 @@ public class WorldManager {
 		object2.tick();
 
 	}
-
+	
+	public static int getScore() {
+    	return score;
+    }
+	
 	private void HazardMovement() {
 
 		for (int i = 0; i < SpawnedHazards.size(); i++) {
@@ -195,7 +204,6 @@ public class WorldManager {
 
 				if(player.facing=="UP") {
 					player.setY(player.getY()+64);
-					
 				}
 				if(player.facing=="DOWN") {
 					player.setY(player.getY()-64);
@@ -213,28 +221,36 @@ public class WorldManager {
 				if(SpawnedHazards.get(i).getX()>576) {
 					SpawnedHazards.get(i).setX(-128);
 				}
-				if (SpawnedHazards.get(i).GetCollision() != null 
-						&& player.getPlayerCollision().intersects(SpawnedHazards.get(i).GetCollision()) && player.getX()< 576 && player.getHeight()<576) {
+				if(SpawnedHazards.get(i).GetCollision() != null && player.getPlayerCollision().intersects(SpawnedHazards.get(i).GetCollision()) && player.getX()< 576 && player.getHeight()<576) {
 					player.setX(player.getX() + 1);
-
 				}
 			}
 
-			// Moves Turtle to the right
+			// Moves Turtle to the left
 			if (SpawnedHazards.get(i) instanceof Turtle) {
-				SpawnedHazards.get(i).setX(SpawnedHazards.get(i).getX() + 1);
-
-
+				SpawnedHazards.get(i).setX(SpawnedHazards.get(i).getX() - 1);
+				
+				if(SpawnedHazards.get(i).getX() < 0) {
+					SpawnedHazards.get(i).setX(640);
+				}
+				
+				if(SpawnedHazards.get(i).GetCollision() != null && player.getPlayerCollision().intersects(SpawnedHazards.get(i).GetCollision()) && player.getX() < 576 && player.getHeight()<576) {
+					player.setX(player.getX() + 1);				
+				}
+			}
 				// Verifies the hazards Rectangles aren't null and
 				// If the player Rectangle intersects with the Log or Turtle Rectangle, then
 				// move player to the right.
-				if (SpawnedHazards.get(i).GetCollision() != null
-						&& player.getPlayerCollision().intersects(SpawnedHazards.get(i).GetCollision())) {
-					player.setX(player.getX() + 1);
+			if (SpawnedHazards.get(i) instanceof Turtle) {
+				if (SpawnedHazards.get(i).GetCollision() != null && player.getPlayerCollision().intersects(SpawnedHazards.get(i).GetCollision())) {
+						player.setX(player.getX() - 3);
 				}
 			}
-
-
+			if(SpawnedHazards.get(i) instanceof Log) {
+				if (SpawnedHazards.get(i).GetCollision() != null && player.getPlayerCollision().intersects(SpawnedHazards.get(i).GetCollision())) {
+						player.setX(player.getX() + 1);
+				}
+			}	
 
 			// if hazard has passed the screen height, then remove this hazard.
 			if (SpawnedHazards.get(i).getY() > handler.getHeight()) {
@@ -255,15 +271,20 @@ public class WorldManager {
 		}
 
 		String score1= Integer.toString(score);
+		g.setColor(Color.BLACK);
+		g.fillRect(5, 5, 120, 35);
+		g.setColor(Color.WHITE);
+		g.setFont(new Font("ComicSans", Font.PLAIN, 20));
+		g.drawString("Score: " + score1, 10, 28);
+		g.drawRect(5, 5, 120, 35);
+		//g.drawRect(30, 8, 100, 35);
 
-		g.drawString("Score: " + score1, 32, 30);
-
-		g.drawRect(30, 8, 100, 35);
-
-		player.render(g);       
+		player.render(g);      
 		this.object2.render(g);      
 
 	}
+	
+
 
 	/*
 	 * Given a yPosition, this method will return a random Area out of the Available ones.)
@@ -347,6 +368,17 @@ public class WorldManager {
 			}
 		}
 
+	}
+	
+	private void triggerGameOver() {
+		for (int i = 0; i < SpawnedHazards.size(); i++)
+		if(SpawnedAreas.get(i) instanceof WaterArea) {
+			if(player.getY() == SpawnedAreas.get(i).getYPosition()){
+				State.setState(handler.getGame().gameOverState); 
+			}
+		}
+		
+		
 	}
 
 }

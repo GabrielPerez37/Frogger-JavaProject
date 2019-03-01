@@ -27,17 +27,17 @@ public class Turtle extends StaticBase {
 	@Override
 	public void tick() {
 		anim.tick();	// Animation frame movement.
-	}
+	} 
 	
 	@Override
 	public void render(Graphics g) { 
 			
 			if (!WentUnderWater()) {
-				g.drawImage(anim.getCurrentFrame(), this.getX(), this.getY(), 80, 64, null);	
+				g.drawImage(anim.getCurrentFrame(), this.getX(), this.getY(), -80, 64, null);	
 				turtle = new Rectangle(this.getX()+30, this.getY(), 20, 55);
 			}
 			else {
-				g.drawImage(anim.getCurrentFrame(), this.getX(), this.getY(), 80, 64, null);
+				g.drawImage(anim.getCurrentFrame(), this.getX(), this.getY(), -80, 64, null);
 				turtle = new Rectangle();
 			}
 				
