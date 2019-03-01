@@ -283,13 +283,7 @@ public class WorldManager {
 		g.drawRect(5, 5, 120, 35);
 		//g.drawRect(30, 8, 100, 35);
 
-		player.render(g);      
-
-		g.drawString("Score: " + score1, 32, 33);
-		g.drawRect(30, 8, 106, 35);
-	
 		
-
 		player.render(g);      
 		this.object2.render(g);      
 
